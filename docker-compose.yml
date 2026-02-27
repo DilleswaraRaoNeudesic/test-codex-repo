@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  inventory:
+    build: ./inventory_service
+    environment:
+      - INVENTORY_DB=/data/inventory.sqlite3
+    volumes:
+      - inventory_data:/data
+    ports:
+      - "8001:8000"
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+
+  payment:
+    build: ./payment_service
+    environment:
+      - PAYMENT_DB=/data/payment.sqlite3
+    volumes:
+      - payment_data:/data
+    ports:
+      - "8002:8000"
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+
+  order:
+    build: ./order_service
+    environment:
+      - INVENTORY_URL=http://inventory:8000
+      - PAYMENT_URL=http://payment:8000
+      - ORDER_DB=/data/orders.sqlite3
+    volumes:
+      - order_data:/data
+    ports:
+      - "8000:8000"
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - inventory
+      - payment
+
+volumes:
+  inventory_data:
+  payment_data:
+  order_data:
+
