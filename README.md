@@ -1,0 +1,15 @@
+Calculator REST API
+
+Setup
+- Install dependencies: `pip install -r requirements.txt`
+- Run server: `uvicorn calculator.main:app --reload`
+- Or via Docker: `docker compose up --build`
+
+Endpoints
+- POST `/add`       body `{ "a": float, "b": float }` → `{ "result": float }`
+- POST `/subtract`  body `{ "a": float, "b": float }` → `{ "result": float }`
+- POST `/multiply`  body `{ "a": float, "b": float }` → `{ "result": float }`
+- POST `/divide`    body `{ "a": float, "b": float }` → `{ "result": float }` (400 on division by zero)
+- POST `/power`     body `{ "a": float, "b": float }` → `{ "result": float }`
+- POST `/sqrt`      body `{ "a": float }` → `{ "result": float }` (400 on negative input)
+- GET  `/history`   returns last 10 calculations in newest-first order
