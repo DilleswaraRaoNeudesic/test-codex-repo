@@ -1,12 +1,26 @@
-﻿# Test Codex Repo
+# Calculator REST API
 
-This repository is used for Codex CLI test runs and demonstrations.
+Simple Calculator REST API built with FastAPI.
 
-## Description
+## Setup
 
-This project contains minimal scaffolding intended to validate workflows like branching, committing changes, and opening pull requests. In this update, we add a simple `README.md` with a brief project description.
+```bash
+python -m venv .venv
+. .venv/Scripts/activate  # Windows PowerShell: . .venv/Scripts/Activate.ps1
+pip install -r requirements.txt
+```
 
-## Branch and Pull Request
+## Run
 
-- Working branch: `feature/test-run-001-20260119-070245`
-- Pull Request base: `main`
+```bash
+uvicorn calculator.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Open http://localhost:8000/docs for interactive docs.
+
+## Test
+
+```bash
+pytest -q
+```
+
